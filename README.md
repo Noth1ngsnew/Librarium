@@ -3,7 +3,7 @@
 A web application for tracking your reading activity. Users can add books, set reading statuses, write notes and reviews.
 
 **Stack:** Angular + Django REST Framework  
-**Practice Lesson:** Wednesday 15-17
+**Practice Lesson:** Monday 14-16
 
 ---
 
