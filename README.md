@@ -1,4 +1,4 @@
-# Book Tracker
+# Librarium
 
 A web application for tracking your reading activity. Users can add books, set reading statuses, write notes and reviews.
 
