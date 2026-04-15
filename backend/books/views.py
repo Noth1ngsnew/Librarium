@@ -95,9 +95,8 @@ class BookListCreateView(APIView):
     в первую очередь проверяется аутентификация
     он может и отдавать и создавать список объектов
     """
-    
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated] # фейс контроль
 
     def get(self, request):
         status_filter = request.query_params.get('status')
@@ -163,8 +162,7 @@ class BookDetailView(APIView):
         book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-# ── Reviews — CBV ─────────────────────────────────────────────────────────────
+# начало отзывов
 
 class ReviewListCreateView(APIView):
     permission_classes = [IsAuthenticated]
@@ -179,9 +177,8 @@ class ReviewListCreateView(APIView):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# ── Reading Logs — CBV ────────────────────────────────────────────────────────
+        
+# конец отзывов
 
 class ReadingLogListCreateView(APIView):
     permission_classes = [IsAuthenticated]
@@ -196,9 +193,6 @@ class ReadingLogListCreateView(APIView):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# ── Badges — CBV ──────────────────────────────────────────────────────────────
 
 class UserBadgeListView(APIView):
     permission_classes = [IsAuthenticated]
