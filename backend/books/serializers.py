@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from .models import Book, ReadingLog, Review, Badge, UserBadge
 
 
-# ── serializers.Serializer (не ModelSerializer) ──────────────────────────────
+# serializers.Serializer (не ModelSerializer)
 
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)
@@ -28,7 +28,7 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
 
-# ── ModelSerializer ───────────────────────────────────────────────────────────
+# ModelSerializer
 
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
