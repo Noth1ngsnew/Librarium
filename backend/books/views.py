@@ -8,8 +8,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 
 from .models import Book, ReadingLog, Review, Badge, UserBadge
-from .serializers import 
-(
+from .serializers import (
     RegisterSerializer, LoginSerializer,
     BookSerializer, ReadingLogSerializer,
     ReviewSerializer, UserBadgeSerializer,
@@ -27,6 +26,7 @@ def award_badges(user):
         'five_books': 5,    # btw milestones is a term for a progress (этапы на русском)
         'ten_books':  10,
     }
+    
     for condition_key, threshold in milestones.items():
         if finished_count >= threshold:
             badge = Badge.objects.filter(condition_key=condition_key).first()
@@ -42,7 +42,7 @@ def register_view(request):
     httpresponse, но @api_view позволяет нам получить request
     и response фактически работая только с тем что выбирает
     юзер, к примеру 'POST' или 'PUT' etc.
-    """"
+    """
     serializer = RegisterSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
@@ -95,9 +95,8 @@ class BookListCreateView(APIView):
     в первую очередь проверяется аутентификация
     он может и отдавать и создавать список объектов
     """
-    
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated] # фейс контроль
 
     def get(self, request):
         status_filter = request.query_params.get('status')
@@ -163,8 +162,7 @@ class BookDetailView(APIView):
         book.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
-# ── Reviews — CBV ─────────────────────────────────────────────────────────────
+# начало отзывов
 
 class ReviewListCreateView(APIView):
     permission_classes = [IsAuthenticated]
@@ -179,9 +177,8 @@ class ReviewListCreateView(APIView):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# ── Reading Logs — CBV ────────────────────────────────────────────────────────
+        
+# конец отзывов
 
 class ReadingLogListCreateView(APIView):
     permission_classes = [IsAuthenticated]
@@ -196,9 +193,6 @@ class ReadingLogListCreateView(APIView):
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-# ── Badges — CBV ──────────────────────────────────────────────────────────────
 
 class UserBadgeListView(APIView):
     permission_classes = [IsAuthenticated]
