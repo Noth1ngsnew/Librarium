@@ -1,1 +1,93 @@
-<p>book-detail works!</p>
+<div class="container">
+  <button class="btn-back" (click)="goBack()">← Back</button>
+
+  @if (userBook()) {
+    <div class="book-detail">
+      <div class="book-header">
+        <img [src]="getCoverUrl()" alt="cover" />
+        <div class="book-info">
+          <h1>{{ userBook().book.title }}</h1>
+          <h3>{{ userBook().book.author }}</h3>
+          <p class="genre">{{ userBook().book.genre }}</p>
+          <p class="description">{{ userBook().book.description }}</p>
+          <div class="status-buttons">
+            <button (click)="updateStatus('want_to_read')"
+              [class.active]="userBook().status === 'want_to_read'">
+              Want to Read
+            </button>
+            <button (click)="updateStatus('reading')"
+              [class.active]="userBook().status === 'reading'">
+              Reading
+            </button>
+            <button (click)="updateStatus('finished')"
+              [class.active]="userBook().status === 'finished'">
+              Finished
+            </button>
+          </div>
+          <button class="btn-remove" (click)="deleteFromMyList()">
+            🗑 Remove from My List
+          </button>
+        </div>
+      </div>
+
+      <div class="progress-section">
+        <h3>Reading Progress</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgress()"></div>
+        </div>
+        <p class="progress-label">
+            {{ getProgress() }}% — {{ userBook().current_page }} / {{ userBook().book.total_pages }} pages
+        </p>
+        <div class="progress-inputs">
+          <div class="input-group">
+            <label>Current page</label>
+            <input type="number"
+              [value]="userBook().current_page"
+              [min]="0"
+              [max]="userBook().book.total_pages"
+              (input)="updateCurrentPage(+$any($event.target).value)"
+              placeholder="0" />
+          </div>
+          <button class="btn-primary" (click)="updateProgress()">Update</button>
+        </div>
+      </div>
+
+      <div class="reviews-section">
+        <h3>Reviews</h3>
+        @for (review of reviews(); track review.id) {
+          <div class="review-card">
+            <p class="review-author">{{ review.username }}</p>
+            <p>{{ review.content }}</p>
+            <div class="stars">
+              @for (star of getStars(review.rating); track $index) {
+                <span class="star filled">★</span>
+              }
+              @for (star of getEmptyStars(review.rating); track $index) {
+                <span class="star">★</span>
+              }
+            </div>
+          </div>
+        }
+        <div class="add-review">
+          <h4>Add Review</h4>
+          <textarea [(ngModel)]="newReview.content" placeholder="Write your review..."></textarea>
+          <div class="rating-selector">
+            <label>Rating:</label>
+            <div class="star-input">
+              @for (n of [1,2,3,4,5]; track n) {
+                <span
+                  class="star-pick"
+                  [class.selected]="newReview.rating >= n"
+                  (click)="newReview.rating = n">★</span>
+              }
+            </div>
+          </div>
+          <button class="btn-primary" (click)="submitReview()">Submit Review</button>
+          @if (error()) {
+            <div class="error">{{ error() }}</div>
+          }
+        </div>
+      </div>
+    </div>
+  }
+</div>
