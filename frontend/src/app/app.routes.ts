@@ -4,6 +4,7 @@ import { BookList } from './components/book-list/book-list';
 import { BookDetail } from './components/book-detail/book-detail';
 import { MyList } from './components/my-list/my-list';
 import { Badges } from './components/badges/badges';
+import { Profile } from './components/profile/profile';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -12,4 +13,5 @@ export const routes: Routes = [
   { path: 'books/:id', component: BookDetail },
   { path: 'my-list', component: MyList },
   { path: 'badges', component: Badges },
+  { path: 'profile', component: Profile },
 ];
