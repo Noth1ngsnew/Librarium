@@ -1,0 +1,119 @@
+.badges-header {
+  margin-bottom: 32px;
+}
+
+.badges-header h2 {
+  margin-bottom: 6px;
+}
+
+.badges-header h2::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: var(--accent);
+  margin-top: 10px;
+  border-radius: 2px;
+}
+
+.badges-subtitle {
+  color: #888;
+  font-size: 14px;
+}
+
+.empty-badges {
+  text-align: center;
+  margin: 60px 0;
+  color: #888;
+}
+
+.empty-icon {
+  font-size: 56px;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.badges-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  margin-top: 24px;
+}
+
+.badge-card {
+  background: var(--white);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 28px 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.badge-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--accent);
+}
+
+.badge-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.badge-card:hover::before {
+  opacity: 1;
+}
+
+.badge-glow {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(212, 168, 83, 0.25), transparent);
+  border-radius: 50%;
+}
+
+.badge-icon {
+  font-size: 52px;
+  display: block;
+  margin-bottom: 14px;
+  position: relative;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+  transition: transform 0.3s;
+}
+
+.badge-card:hover .badge-icon {
+  transform: scale(1.1);
+}
+
+.badge-card h3 {
+  font-size: 15px;
+  margin-bottom: 6px;
+  color: var(--primary);
+}
+
+.badge-description {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
+.badge-date {
+  font-size: 11px;
+  color: #bbb;
+  padding-top: 8px;
+  border-top: 1px solid #f0ebe0;
+}

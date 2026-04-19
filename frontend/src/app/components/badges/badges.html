@@ -1,1 +1,27 @@
-<p>badges works!</p>
+<div class="container">
+  <button class="btn-back" (click)="goBack()">← Back</button>
+
+  <div class="badges-header">
+    <h2>My Badges</h2>
+    <p class="badges-subtitle">Earn badges by reading more books 📖</p>
+  </div>
+
+  @if (badges().length === 0) {
+    <div class="empty-badges">
+      <span class="empty-icon">🏅</span>
+      <p>No badges yet. Finish your first book to earn one!</p>
+    </div>
+  }
+
+  <div class="badges-grid">
+    @for (userBadge of badges(); track userBadge.id) {
+      <div class="badge-card">
+        <div class="badge-glow"></div>
+        <span class="badge-icon">{{ userBadge.badge.icon }}</span>
+        <h3>{{ userBadge.badge.name }}</h3>
+        <p class="badge-description">{{ userBadge.badge.description }}</p>
+        <p class="badge-date">Earned {{ userBadge.earned_at | date: 'mediumDate' }}</p>
+      </div>
+    }
+  </div>
+</div>
