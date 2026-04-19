@@ -1,8 +1,8 @@
 from django.contrib import admin
-from .models import Book, ReadingLog, Review, Badge, UserBadge
+from .models import Book, UserBook, ReadingLog, Review, Badge, UserBadge
 
-# Registration 
 admin.site.register(Book)
+admin.site.register(UserBook)
 admin.site.register(ReadingLog)
 admin.site.register(Review)
 admin.site.register(Badge)
