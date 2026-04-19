@@ -1,1 +1,142 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #2C5F2E;
+  --secondary: #F5F0E8;
+  --accent: #D4A853;
+  --text: #2C2C2C;
+  --white: #FFFFFF;
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
+  --shadow-hover: 0 12px 40px rgba(44,95,46,0.15);
+  --radius: 14px;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--secondary);
+  background-image:
+    radial-gradient(circle at 20% 20%, rgba(212,168,83,0.07) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(44,95,46,0.06) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text);
+}
+
+h1, h2, h3 {
+  font-family: 'Playfair Display', serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #2C5F2E, #3a7a3c);
+  color: var(--white);
+  border: none;
+  padding: 10px 22px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s;
+  box-shadow: 0 2px 8px rgba(44,95,46,0.25);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1e4220, #2C5F2E);
+  box-shadow: 0 4px 16px rgba(44,95,46,0.35);
+  transform: translateY(-1px);
+}
+
+.btn-back {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.btn-back:hover {
+  opacity: 1;
+}
+
+.btn-delete {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: background 0.2s;
+}
+
+.btn-delete:hover {
+  background: #c0392b;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.empty {
+  text-align: center;
+  color: #888;
+  margin-top: 40px;
+  font-size: 16px;
+}
+
+.progress-bar {
+  background: #e8e0d0;
+  border-radius: 10px;
+  height: 8px;
+  margin: 8px 0;
+  overflow: hidden;
+}
+
+.progress-fill {
+  background: linear-gradient(90deg, #2C5F2E, #5a9e5c);
+  height: 100%;
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+
+.status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.status.reading {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.status.finished {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status.want_to_read {
+  background: #cce5ff;
+  color: #004085;
+}
