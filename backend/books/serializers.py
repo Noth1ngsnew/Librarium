@@ -1,9 +1,7 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Book, ReadingLog, Review, Badge, UserBadge
+from .models import Book, UserBook, ReadingLog, Review, Badge, UserBadge
 
-
-# serializers.Serializer (не ModelSerializer)
 
 class RegisterSerializer(serializers.Serializer):
     username = serializers.CharField(max_length=150)
@@ -28,16 +26,23 @@ class LoginSerializer(serializers.Serializer):
     password = serializers.CharField(write_only=True)
 
 
-# ModelSerializer
-
 class BookSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Book
-        fields = [
-            'id', 'title', 'author', 'genre', 'description',
-            'status', 'current_page', 'total_pages', 'created_at',
-        ]
+        fields = ['id', 'title', 'author', 'genre', 'description', 'total_pages', 'created_at']
         read_only_fields = ['id', 'created_at']
+
+
+class UserBookSerializer(serializers.ModelSerializer):
+    book = BookSerializer(read_only=True)
+    book_id = serializers.PrimaryKeyRelatedField(
+        queryset=Book.objects.all(), source='book', write_only=True
+    )
+
+    class Meta:
+        model  = UserBook
+        fields = ['id', 'book', 'book_id', 'status', 'current_page', 'added_at']
+        read_only_fields = ['id', 'added_at']
 
 
 class ReadingLogSerializer(serializers.ModelSerializer):
@@ -48,16 +53,18 @@ class ReadingLogSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(source='user.username', read_only=True)
+
     class Meta:
         model  = Review
-        fields = ['id', 'book', 'content', 'rating', 'created_at']
+        fields = ['id', 'book', 'username', 'content', 'rating', 'created_at']
         read_only_fields = ['id', 'created_at']
 
 
 class BadgeSerializer(serializers.ModelSerializer):
     class Meta:
         model  = Badge
-        fields = ['id', 'name', 'icon', 'condition_key']
+        fields = ['id', 'name', 'icon', 'condition_key', 'description']
 
 
 class UserBadgeSerializer(serializers.ModelSerializer):
