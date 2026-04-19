@@ -1,1 +1,36 @@
-<p>my-list works!</p>
+<div class="container">
+  <button class="btn-back" (click)="goBack()">← Back</button>
+
+  <h2>My List</h2>
+
+  <div class="filter-buttons">
+    <button (click)="setStatus('all')" [class.active]="selectedStatus() === 'all'">All</button>
+    <button (click)="setStatus('reading')" [class.active]="selectedStatus() === 'reading'">Reading</button>
+    <button (click)="setStatus('want_to_read')" [class.active]="selectedStatus() === 'want_to_read'">Want to Read</button>
+    <button (click)="setStatus('finished')" [class.active]="selectedStatus() === 'finished'">Finished</button>
+  </div>
+
+  <div class="books-grid">
+    @for (userBook of filteredBooks(); track userBook.id) {
+      <div class="book-card" (click)="goToDetail(userBook.id)">
+        <div class="book-cover">
+          <img [src]="getCoverUrl(userBook.book)" alt="cover"
+            [style.opacity]="coverUrls()[userBook.book.id] ? '1' : '0'"
+            style="transition: opacity 0.3s" />
+        </div>
+        <div class="book-info">
+          <h3>{{ userBook.book.title }}</h3>
+          <p class="author">{{ userBook.book.author }}</p>
+          <span class="status {{ userBook.status }}">{{ userBook.status | titlecase }}</span>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="getProgress(userBook)"></div>
+          </div>
+          <p class="progress-text">{{ getProgress(userBook) }}% complete</p>
+        </div>
+      </div>
+    }
+    @if (filteredBooks().length === 0) {
+      <p class="empty">No books found.</p>
+    }
+  </div>
+</div>
