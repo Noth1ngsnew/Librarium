@@ -1,0 +1,54 @@
+<div class="container">
+  <button class="btn-back" (click)="goBack()">← Back</button>
+
+  @if (profile()) {
+    <div class="profile-card">
+      <div class="profile-header">
+        <div class="avatar">{{ profile().username[0].toUpperCase() }}</div>
+        <div>
+          <h2>{{ profile().username }}</h2>
+          <p class="email">{{ profile().email }}</p>
+        </div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <span class="stat-number">{{ profile().stats.finished }}</span>
+          <span class="stat-label">✅ Finished</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">{{ profile().stats.reading }}</span>
+          <span class="stat-label">📖 Reading</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">{{ profile().stats.want_to_read }}</span>
+          <span class="stat-label">🔖 Want to Read</span>
+        </div>
+      </div>
+
+      <div class="goal-section">
+        <h3>📅 Reading Goal This Year</h3>
+        <p class="goal-sub">{{ profile().stats.finished_this_year }} of {{ profile().reading_goal || '?' }} books finished</p>
+
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getGoalProgress()"></div>
+        </div>
+        <p class="progress-label">{{ getGoalProgress() }}%</p>
+
+        <div class="goal-input-row">
+          <input
+            type="number"
+            [ngModel]="goalInput()"
+            (ngModelChange)="goalInput.set($event)"
+            placeholder="Set your goal"
+            min="1" />
+          <button class="btn-primary" (click)="saveGoal()">Save</button>
+        </div>
+
+        @if (saved()) {
+          <p class="saved-msg">✓ Goal saved!</p>
+        }
+      </div>
+    </div>
+  }
+</div>
